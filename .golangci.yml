@@ -1,0 +1,60 @@
+version: 2
+
+run:
+  timeout: 5m
+
+linters-settings:
+  govet:
+    check-shadowing: true
+
+  goconst:
+    min-len: 3
+    min-occurrences: 3
+
+  gocyclo:
+    min-complexity: 10
+
+  gofmt:
+    simplify: true
+
+  errcheck:
+    exclude-functions:
+      - fmt.Println
+      - fmt.Printf
+
+  revive:
+    ignore-generated-header: true
+
+  dupl:
+    threshold: 100
+
+linters:
+  enable:
+    - govet
+    - errcheck
+    - goconst
+    - gocyclo
+    - ineffassign
+    - staticcheck
+    - unused
+    - dupl
+    - revive
+  disable:
+    - nakedret
+
+issues:
+  exclude-rules:
+    - linters:
+        - errcheck
+      text: "fmt.*"
+
+  exclude:
+    - "Generated code"
+    - "Deprecated"
+
+  max-issues-per-linter: 0
+  max-same-issues: 3
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
